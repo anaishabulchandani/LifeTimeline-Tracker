@@ -13,7 +13,7 @@ cursor = db.cursor()
 
 st.title("Life Timeline Dashboard")
 
-# ---------------- ADD EVENT ----------------
+#  ADD EVENT 
 st.subheader("Add Event")
 
 col1, col2 = st.columns(2)
@@ -34,7 +34,7 @@ if st.button("Add Event"):
     db.commit()
     st.success("Event Added!")
 
-# ---------------- FILTERS ----------------
+#  FILTERS 
 st.subheader("Filter Events")
 
 min_mood = st.slider("Minimum Mood", 1, 5, 1)
@@ -42,7 +42,7 @@ min_mood = st.slider("Minimum Mood", 1, 5, 1)
 cursor.execute("SELECT * FROM Events WHERE mood_rating >= %s", (min_mood,))
 events = cursor.fetchall()
 
-# ---------------- VIEW EVENTS ----------------
+#  VIEW EVENTS 
 st.subheader("All Events")
 
 for e in events:
@@ -57,7 +57,7 @@ for e in events:
             db.commit()
             st.experimental_rerun()
 
-# ---------------- ANALYSIS ----------------
+#  ANALYSIS 
 st.subheader(" Monthly Analysis")
 
 cursor.execute("SELECT MONTH(event_date), COUNT(*) FROM Events GROUP BY MONTH(event_date)")
